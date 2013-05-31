@@ -1,3 +1,4 @@
+from flask.ext import admin
 from functools import wraps
 import traceback
 import logging
@@ -44,9 +45,17 @@ def jsonified(func):
 	flask.jsonify
 	return wrapped
 
+class IndexView(admin.AdminIndexView):
+	@admin.expose('/')
+	def index(self):
+		return self.render('index.html')
+
 def make_app(debug=False):
 	'''Create our Flask app'''
-	app = flask.Flask(__name__)
+	app = flask.Flask(__name__, static_url_path='/assets')
+
+	index_view = IndexView(name='Home', url='/')
+	app_admin = admin.Admin(app, name='Get Out!', index_view=index_view)
 
 	app.route('/lolz')(jsonified(interaction.lolz))
 

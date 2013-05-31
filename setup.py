@@ -7,11 +7,14 @@ setup(
 	, packages = ['get_out']
 
 	, package_data =
-	  {
+	  { 'get-out':
+		[ 'templates/*.html'
+		]
 	  }
 
 	, install_requires =
 	  [ 'flask'
+	  , 'flask-admin'
 	  ]
 
 	, entry_points =
