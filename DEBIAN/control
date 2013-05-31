@@ -1,0 +1,8 @@
+Package: get-out
+Version: VERSION_PLACEHOLDER
+Section: govhack
+Priority: optional
+Architecture: all
+Depends: python, python-flask
+Maintainer: Stephen Moore <stephen@delfick.com>
+Description: GovHack 2013 idea

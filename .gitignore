@@ -1,0 +1,7 @@
+.project
+.pydevproject
+*.pyc
+*.egg-info
+build/
+*.deb
+.ropeproject/
