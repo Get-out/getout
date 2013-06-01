@@ -1,5 +1,9 @@
 {% extends "templates/base.html" %}
 {% load staticfiles %}
+{% block extracss %}
+  <link href="/static/css/fd-slider.css" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
     <div>
       <form action="{% url 'redirect_to_list' %}" method="post">
@@ -27,5 +31,9 @@
         <input class="btn btn-primary btn-large" type="submit" value="Search" />
       </form>
     </div>
+{% endblock %}
+
+{% block extrajs %}
+  <script src="/static/js/fd-slider.js"></script>
 {% endblock %}
 
