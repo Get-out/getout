@@ -17,9 +17,8 @@
 }
 
 .smallimg {
-	max-height: 50px;
-	min-height: 50px;
-	min-width: 50px;
+	width: 100px;
+	min-width: 100px;
 }
 
 .largeimg {
@@ -38,17 +37,17 @@
 }
 
 .checkitem {
-	padding: 5px;
-	padding-left: 0px;
-	margin-left: 10px;
-	padding-right: 15px;
+	margin: 0;
+	padding: 0;
+	width:100%;
+	height:100%;
 }
 
 .no-bottom-margin {
 	margin-bottom: 0px;
 }
 
-.left-inset {
-	padding-left: 10px;
+.thumbnail {
+	border: none!important;
 }
 
