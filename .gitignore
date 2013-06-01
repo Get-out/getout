@@ -6,3 +6,4 @@ build/
 *.deb
 .ropeproject/
 local_settings.py
+.*.swp

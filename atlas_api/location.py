@@ -1,6 +1,7 @@
 import requests
 
 from helpers import cached_property
+from excluded_families import EXCLUDED_FAMILIES
 
 class Location(object):
     search_url = 'http://spatial.ala.org.au/ws/search/'
@@ -29,9 +30,19 @@ class Location(object):
     def species(self):
         results = requests.get(self.species_url, params=dict(
             wkt = self.bounding_box,
-            pageSize = 1000,
+            pageSize = 1000000,
         )).json()
         return [Species(i) for i in results if i['rank'] == 'species']
+
+    @property
+    def ranked_species(self, number=10):
+        # sort the species by their sighting counts
+        sorted_species = sorted(self.species, key=lambda x: x.count, reverse=True)
+
+        # get rid of excluded families (ie. fish)
+        filtered_species = [i for i in sorted_species if not i.is_fish]
+
+        return filtered_species[:number]
 
 class Species(object):
     info_url = 'http://bie.ala.org.au/species/info/'
@@ -41,6 +52,14 @@ class Species(object):
 
     def __repr__(self):
         return '<Species name:"%s" (%s)>' % (self.common_name, self.name)
+
+    @property
+    def count(self):
+        return self._from_json['count']
+
+    @property
+    def is_fish(self):
+        return self._from_json['family'].lower() in EXCLUDED_FAMILIES
 
     @property
     def common_name(self):
@@ -60,7 +79,7 @@ class Species(object):
 
     @property
     def image(self):
-        return self._info['image']
+        return self._info.get('image')
 
     def as_json(self):
-        return {'name':self.name, 'common_name':self.common_name, 'image':self.image}
+        return {'name':self.common_name, 'scientific_name':self.name, 'image':self.image}
