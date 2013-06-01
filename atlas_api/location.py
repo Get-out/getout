@@ -1,7 +1,6 @@
-import random
 import itertools
-
 import requests
+import random
 
 from atlas_api.helpers import cached_property
 from atlas_api.species import Species

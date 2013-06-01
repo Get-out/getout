@@ -17,6 +17,7 @@ setup(
       [ 'django'
       , 'psycopg2'
       , 'requests'
+      , 'python-memcached'
       , 'django-bootstrap-form'
       ]
 
