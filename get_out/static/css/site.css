@@ -1,7 +1,10 @@
+.cursor {
+	cursor: pointer;
+}
+
 .chunky {
-	min-height: 60px;
-	line-height: 60px;
-	max-height: 60px;
+	min-height: 50px;
+	line-height: 50px;
 	margin: 10px;
 }
 
@@ -13,7 +16,39 @@
 	background-color: #ddd;
 }
 
-.thingimg {
+.smallimg {
 	max-height: 50px;
 	min-height: 50px;
+	min-width: 50px;
 }
+
+.largeimg {
+	min-height: 100px;
+	min-width: 50px;
+}
+
+.done {
+	background-color: rgba(255, 0, 0, 0.34);
+}
+
+.filler {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+.checkitem {
+	padding: 5px;
+	padding-left: 0px;
+	margin-left: 10px;
+	padding-right: 15px;
+}
+
+.no-bottom-margin {
+	margin-bottom: 0px;
+}
+
+.left-inset {
+	padding-left: 10px;
+}
+
