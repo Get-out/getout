@@ -1,4 +1,8 @@
-FISH_FAMILIES = frozenset([
+# A dictionary of the species families we know of
+# Unfortunately we couldn't find an api for this....
+FAMILIES = {}
+
+FAMILIES["fish"] = frozenset([
     'abyssocottidae',
     'acanthuridae',
     'acestrorhynchidae',
@@ -522,7 +526,7 @@ FISH_FAMILIES = frozenset([
     'zoarcidae',
 ])
 
-BIRD_FAMILIES = frozenset([
+FAMILIES["bird"] = frozenset([
     'struthionidae',
     'rheidae',
     'tinamidae',
@@ -767,7 +771,7 @@ BIRD_FAMILIES = frozenset([
     'icteridae',
 ])
 
-PLANT_FAMILIES = frozenset([
+FAMILIES["plant"] = frozenset([
     'gelsemiaceae',
     'eupteleaceae',
     'chaetophyllopsaceae',
@@ -1306,7 +1310,7 @@ PLANT_FAMILIES = frozenset([
     'pterigynandraceae',
 ])
 
-TREE_FAMILIES = frozenset([
+FAMILIES["tree"] = frozenset([
     'araucariaceae',
     'cupressaceae',
     'pinaceae',

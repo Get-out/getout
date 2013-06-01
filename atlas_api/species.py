@@ -1,7 +1,7 @@
 import requests
 
 from atlas_api.helpers import cached_property
-from atlas_api import families
+from atlas_api.families import FAMILIES
 
 class Species(object):
     """Represents a single species"""
@@ -19,7 +19,7 @@ class Species(object):
 
     @property
     def is_fish(self):
-        return self._from_json['family'].lower() in families.FISH_FAMILIES
+        return self._from_json['family'].lower() in FAMILIES['fish']
 
     @property
     def common_name(self):
@@ -44,18 +44,16 @@ class Species(object):
 
     @property
     def description(self):
-        # super-reliable way of getting the description
+        """Super-reliable way of getting the description"""
         properties = [i['value'] for i in self._info['simpleProperties'] if not i['value'].startswith("http")]
         return max(properties, key=len) if properties else ""
 
     @property
     def le_type(self):
-        # please forgive me, for I have sinneth
-        for family in dir(families):
-            if not family.endswith('FAMILIES'):
-                continue
-            if self._from_json['family'].lower() in getattr(families, family):
-                return family.split('_')[0].lower()
+        """Get the type of the species"""
+        for name, family in FAMILIES.items():
+            if self._from_json['family'].lower() in family:
+                return name
         return 'other'
 
     def as_json(self):
