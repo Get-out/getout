@@ -1,0 +1,15 @@
+ul.nolist
+{
+	list-style-type: none;
+	margin: 0;
+}
+
+ul.nolist input.right
+{
+	float:right;
+}
+
+li.chunky
+{
+	padding: 3px 0;
+}

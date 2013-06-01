@@ -25,7 +25,7 @@ def index(request):
     })
 
 def list_view(request):
-    return render_to_response('templates/list.html', {'things': [1,2,3]}, context_instance=RequestContext(request))
+    return render_to_response('templates/list.html', {'things': Location('wilsons promontory').ranked_species}, context_instance=RequestContext(request))
 
 def species(request):
 		name = request.GET.get("name")

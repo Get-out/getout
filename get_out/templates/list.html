@@ -1,14 +1,16 @@
 {% extends "templates/base.html" %}
 {% block body %}
-	<ul>
+	<div class="row-fluid">
+	<ul class="nolist">
 	{% for x in things %}
 		{% block item %}
-		<li>
-			this is an item
-			<input type="checkbox">
+		<li class="chunky">
+			{{ x.common_name }}
+			<input type="checkbox" class="right">
 		</li>
 		{% endblock %}
 	{% endfor %}
 	</ul>
+	</div>
 {% endblock %}
 
