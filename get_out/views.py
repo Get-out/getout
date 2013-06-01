@@ -29,8 +29,16 @@ def index(request):
 
 def list_view(request):
     """Give us a list of animals for a location for humans"""
-    things = things_list_from_request(request)
-    return render_to_response('templates/list.html', {'things': things})
+    File = 'templates/list.html'
+    extra = {}
+
+    try:
+        extra['things'] = things_list_from_request(request)
+    except Location404:
+        extra['things'] = []
+        extra['bad_location'] = True
+
+    return render_to_response(File, extra)
 
 ########################
 ###   JSON

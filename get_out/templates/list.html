@@ -21,7 +21,11 @@
     </div>
   </div>
   {% empty %}
-  <p>Sorry, no animals for this area!</p>
+    {% if bad_location %}
+      <p>Sorry, that location doesn't exist!</p>
+    {% else %}
+      <p>Sorry, no animals for this area!</p>
+    {% endif %}
   {% endfor %}
 {% endblock %}
 

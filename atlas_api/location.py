@@ -5,6 +5,12 @@ import random
 from atlas_api.helpers import cached_property
 from atlas_api.species import Species
 
+class Location404(Exception):
+    """Exception to encapsulate a location that doesn't exist"""
+    def __init__(self, location):
+        self.location = location
+        super(Location404, self).__init__()
+
 class Location(object):
     """Represents a location"""
     search_url = 'http://spatial.ala.org.au/ws/search/'
@@ -19,6 +25,8 @@ class Location(object):
         info = requests.get(self.search_url, params=dict(
             q = self.name,
         )).json()
+        if not info:
+            raise Location404(location=self.name)
         return info[0]['pid']
 
     @cached_property
