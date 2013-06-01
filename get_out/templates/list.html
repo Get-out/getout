@@ -5,6 +5,7 @@
 	{% for x in things %}
 		{% block item %}
 		<li class="chunky">
+			<img src="{{ x.image }}" style="height: 25px;"></img>
 			{{ x.common_name }}
 			<input type="checkbox" class="right">
 		</li>
