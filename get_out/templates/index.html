@@ -1,23 +1,29 @@
 {% extends "templates/base.html" %}
 {% load staticfiles %}
 {% block body %}
-    <div class="hero-unit">
-      <h1>Get Out!</h1>
+    <div>
       <form action="{% url 'redirect_to_list' %}" method="post">
         {% csrf_token %}
         {% load bootstrap %}
         {{ form|bootstrap }}
+        <div class="index-sliders">
         {% for x in things %}
-          <div class="row-fluid show-grid chunky">
-            <div class="span1">
-                <img src="{% static x.path %}" class="thingimg"></img>
-              </a>
+          {% if not forloop.counter|divisibleby:2 %}
+            {% if forloop.counter != 0 %}
             </div>
-            <div class="span11">
-              <input type="range" name="{{x.type}}"  min="0" max="10" value="{{x.default}}" style="float:left"><br> 
+            {% endif %}
+            <div class="row-fluid">
+          {% endif %}
+              <div class="span2 index-grid show-grid">
+                  <div class=" thumbnail index_thumbnail">
+                    <img src="{% static x.path %}"></img>
+                  </div>
+                  <input type="range" class="index_slider" name="{{x.type}}" min="0" max="10" value="{{x.default}}" style="height: 50px">
+              </div>
+        {% endfor %}
             </div>
           </div>
-        {% endfor %}
+        </div>
         <input class="btn btn-primary btn-large" type="submit" value="Search" />
       </form>
     </div>

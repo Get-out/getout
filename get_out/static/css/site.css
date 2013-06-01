@@ -1,3 +1,8 @@
+body {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 .cursor {
 	cursor: pointer;
 }
@@ -6,6 +11,14 @@
 	min-height: 50px;
 	line-height: 50px;
 	margin: 10px;
+}
+
+.index-grid {
+	margin: 2px;
+	margin-left: 2px!important;
+	min-width:250px;;
+	padding: 2px;
+	text-align: center;
 }
 
 .show-grid {
@@ -48,6 +61,16 @@
 }
 
 .thumbnail {
+	border: none!important;
+}
+
+.index_thumbnail {
+	max-height: 100px;
+	width: auto!important;
+	min-width:200px;
+}
+
+.index_thumbnail img {
 	border: none!important;
 }
 
