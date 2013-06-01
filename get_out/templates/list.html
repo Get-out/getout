@@ -1,11 +1,11 @@
 {% extends "templates/base.html" %}
 {% block body %}
   {% for x in things %}
-  <div class="row-fluid show-grid chunky cursor" style="padding-left: 0; margin-left: 0">
+  <div class="row-fluid show-grid chunky cursor checkitem" style="padding-left: 0; margin-left: 0">
     <div class="span1 thumbnail smallimg thumbnailexpander">
       <img src="{{ x.image }}"></img>
     </div>
-    <div class="checkitem cursor">
+    <div class="checkitemrow cursor">
       <p class="filler">{{x.common_name}}</p>
     </div>
   </div>

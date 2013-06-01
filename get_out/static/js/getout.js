@@ -1,10 +1,11 @@
 $(function() {
-  $(".thumbnailexpander").click(function() {
-    $(this).parent().next().children('.description').toggle()
+  $(".checkitem").click(function() {
+    $(this).toggleClass("done");
   });
 
-  $(".checkitem").click(function() {
-    $(this).children("p").toggleClass("done");
+  $(".thumbnailexpander").click(function(event) {
+    $(this).parent().next().children('.description').toggle()
+    event.stopPropagation()
   });
 
 })
