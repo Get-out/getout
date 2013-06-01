@@ -3,12 +3,12 @@
 	<!-- Main hero unit for a primary marketing message or call to action -->
 	<div class="hero-unit">
 		<h1>GetOut!</h1>
-		<form action="/" method="post">{% csrf_token %}
+		<form action="/list" method="get">{% csrf_token %}
         {% load bootstrap %}
         {{ form|bootstrap }}
-        <input type="submit" value="Submit" />
-        </form>
-		<p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+
+        <input class="btn btn-primary btn-large" type="submit" value="Search" />
+    </form>
 	</div>
 {% endblock %}
 
