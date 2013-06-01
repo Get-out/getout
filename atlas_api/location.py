@@ -44,7 +44,7 @@ class Location(object):
         return filtered_species[:number]
 
 class Species(object):
-    info_url = 'http://bie.ala.org.au/species/info/'
+    info_url = 'http://bie.ala.org.au/species/'
 
     def __init__(self, json_response):
         self._from_json = json_response
@@ -74,11 +74,17 @@ class Species(object):
 
     @cached_property
     def _info(self):
-        return requests.get(self.info_url + self._guid + '.json').json()['taxonConcept']
+        return requests.get(self.info_url + self._guid + '.json').json()
 
     @property
     def image(self):
-        return self._info.get('image')
+        return self._info['taxonConcept'].get('image')
+
+    @property
+    def description(self):
+        # super-reliable way of getting the description
+        properties = [i['value'] for i in self._info['simpleProperties'] if not i['value'].startswith("http")]
+        return max(properties, key=len)
 
     def as_json(self):
         return {'name':self.common_name, 'scientific_name':self.name, 'image':self.image}
