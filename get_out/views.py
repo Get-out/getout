@@ -21,7 +21,10 @@ def things_list_from_request(req):
 def index(request):
     """Give us an index page with sliders for the different kinds of things to look for"""
     form = forms.LocationSearchForm()
-    things = [{'image':'/static/img/{0}.png'.format(x), 'description':'{0}'.format(x), 'default':y} for x, y in DEFAULT_TYPE_WEIGHTS.items()]
+    things = [
+	{'type':typ, 'default':dflt, 'path':'img/{}.png'.format(typ)}
+	for typ, dflt in DEFAULT_TYPE_WEIGHTS.items()
+    ]
     return render(request, 'templates/index.html', {'form': form, 'things':things})
 
 def list_view(request):

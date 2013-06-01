@@ -1,4 +1,5 @@
 {% extends "templates/base.html" %}
+{% load staticfiles %}
 {% block body %}
 	<!-- Main hero unit for a primary marketing message or call to action -->
 	<div class="hero-unit">
@@ -10,11 +11,11 @@
         {% for x in things %}
         <div class="row-fluid show-grid chunky">
         <div class="span1">          
-            <img src="{{ x.image }}" class="thingimg"></img>
+	    <img src="{% static x.path %}" class="thingimg"></img>
           </a>
         </div>
         <div class="span11">
-            <input type="range" name={{ x.description }}  min="0" max="10" value="{{ x.default }}" style="float:left"><br> 
+            <input type="range" name={{ x.typ }}  min="0" max="10" value="{{ x.default }}" style="float:left"><br> 
         </div>
         </div>
         {% endfor %}
