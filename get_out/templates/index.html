@@ -8,7 +8,19 @@
         {{ form|bootstrap }}
 
         <input class="btn btn-primary btn-large" type="submit" value="Search" />
-    </form>
+    </form>    
 	</div>
+    Slider Test:
+    <input type="text" class="slider" value="5" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
 {% endblock %}
+{% block extrajs %}
+    <script src="/static/js/bootstrap-slider.js"></script>
+    <script type="text/javascript">
 
+    $('.slider').slider()
+    /*function HelloWorld()
+    {
+       alert("Hello World");
+    }*/
+    </script>
+{% endblock %}
