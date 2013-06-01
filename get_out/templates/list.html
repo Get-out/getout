@@ -5,9 +5,19 @@
 	{% for x in things %}
 		{% block item %}
 		<li class="chunky">
-			<img src="{{ x.image }}" style="height: 25px;"></img>
+			<a href="#" onclick="$(this).parent().children('.description').toggle(); return false;">
+				<img src="{{ x.image }}" style="height: 25px;"></img>
+			</a>
 			{{ x.common_name }}
 			<input type="checkbox" class="right">
+			<div class="well description" style="display: none;">
+				<div class="span-9">
+				{{ x.description }}
+				</div>
+				<div class="span-3">
+					<img src="{{ x.image }}"></img>
+				</div>
+			</div>
 		</li>
 		{% endblock %}
 	{% empty %}
