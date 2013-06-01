@@ -15,6 +15,7 @@ setup(
 	, install_requires =
 	  [ 'django'
       , 'psycopg2'
+      , 'requests'
 	  ]
 
 	# metadata
