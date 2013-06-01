@@ -1,15 +1,19 @@
-ul.nolist
-{
-	list-style-type: none;
-	margin: 0;
+.chunky {
+	min-height: 60px;
+	line-height: 60px;
+	max-height: 60px;
+	margin: 10px;
 }
 
-ul.nolist input.right
-{
-	float:right;
+.show-grid {
+	background-color: #eee;
 }
 
-li.chunky
-{
-	padding: 3px 0;
+.show-grid:hover {
+	background-color: #ddd;
+}
+
+.thingimg {
+	max-height: 50px;
+	min-height: 50px;
 }
