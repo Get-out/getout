@@ -6,29 +6,18 @@
 		<form action="/list" method="get">
         {% load bootstrap %}
         {{ form|bootstrap }}
-        <div>
-            Birds:<input type="range" name="birds"  min="0" max="10" value="5"><br>
-            Fish:<input type="range" name="fish"  min="0" max="10" value="0"><br>
-            Mammals:<input type="range" name="mammals"  min="0" max="10" value="5"><br>
-            Marsupials:<input type="range" name="marsupials" min="0" max="10" value="5"><br>
-            Plants:<input type="range" name="plants" min="0" max="10" value="5"><br>
-            Reptiles:<input type="range" name="reptiles" min="0" max="10" value="5"><br>
-            Trees:<input type="range" name="trees" min="0" max="10" value="5"><br>
+        {% for x in things %}
+        <div class="row-fluid show-grid chunky">
+        <div class="span1">          
+            <img src="{{ x.image }}" class="thingimg"></img>
+          </a>
         </div>
+        <div class="span11">
+            <input type="range" name={{ x.description }}  min="0" max="10" value="5" style="float:left"><br> 
+        </div>
+        </div>
+        {% endfor %}
         <input class="btn btn-primary btn-large" type="submit" value="Search" />
     </form>    
 	</div>
-    Slider Test:
-    <input type="text" class="slider" value="5" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
-{% endblock %}
-{% block extrajs %}
-    <script src="/static/js/bootstrap-slider.js"></script>
-    <script type="text/javascript">
-
-    $('.slider').slider()
-    /*function HelloWorld()
-    {
-       alert("Hello World");
-    }*/
-    </script>
 {% endblock %}
