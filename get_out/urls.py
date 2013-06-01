@@ -6,6 +6,7 @@ urlpatterns = patterns(''
     , url(r'^$', 'get_out.views.index', name='home')
 
     , url(r'^list$', 'get_out.views.list_view', name='list')
+    , url(r'^redirect_to_list$', 'get_out.views.redirect_to_list', name='redirect_to_list')
     , url(r'^species$', 'get_out.views.species', name='species')
     ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

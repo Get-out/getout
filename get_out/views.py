@@ -1,18 +1,24 @@
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render_to_response, render, redirect
 from django.http import HttpResponse
 
 from atlas_api.species_list import SpeciesList
+from atlas_api.location import Location404
 
+from urllib import urlencode
 from get_out import forms
 
 import json
 
 DEFAULT_TYPE_WEIGHTS = {"bird":5, "fish":0, "land_animal":5, "plant":5, "tree":5}
-def things_list_from_request(req):
+def params_from_request(req):
     location = req.REQUEST.get('location', 'wilsons promontory')
-    page_amount = req.REQUEST.get('per_page', 10)
+    per_page = req.REQUEST.get('per_page', 10)
     species_weights = {k:v for k, v in req.REQUEST.items() if k in DEFAULT_TYPE_WEIGHTS}
-    return SpeciesList(location, species_weights).retreive(page_amount)
+    return location, per_page, species_weights
+
+def things_list_from_request(req):
+    location, per_page, species_weights = params_from_request(req)
+    return SpeciesList(location, species_weights).retreive(per_page)
 
 ########################
 ###   VIEWS
@@ -22,10 +28,20 @@ def index(request):
     """Give us an index page with sliders for the different kinds of things to look for"""
     form = forms.LocationSearchForm()
     things = [
-	{'type':typ, 'default':dflt, 'path':'img/{}.png'.format(typ)}
-	for typ, dflt in DEFAULT_TYPE_WEIGHTS.items()
+        {'type':typ, 'default':dflt, 'path':'img/{}.png'.format(typ)}
+        for typ, dflt in DEFAULT_TYPE_WEIGHTS.items()
     ]
     return render(request, 'templates/index.html', {'form': form, 'things':things})
+
+def redirect_to_list(request):
+    """Redirect to the list view"""
+    location, per_page, species_weights = params_from_request(request)
+    response = redirect('list')
+
+    params = dict(location=location, per_page=per_page)
+    params.update(species_weights)
+    response['Location'] += '?{}'.format(urlencode(params))
+    return response
 
 def list_view(request):
     """Give us a list of animals for a location for humans"""
