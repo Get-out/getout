@@ -3,7 +3,7 @@
   {% for x in things %}
   <div class="row-fluid show-grid chunky cursor checkitem disable-select" style="padding-left: 0; margin-left: 0">
     <div class="span1 thumbnail smallimg thumbnailexpander">
-      <img src="{{ x.image }}"></img>
+      <img src="{{x.image|default:not_found_image}}"></img>
     </div>
     <div class="checkitemrow cursor">
       <p class="filler enable-select">{{x.common_name}}</p>
@@ -15,7 +15,7 @@
       {{ x.description }}
       </div>
       <div class="span3 thumbnail">
-        <img class="largeimg" src="{{ x.image }}"></img>
+        <img class="largeimg" src="{{x.image|default:not_found_image}}"></img>
       </div>
       <div style="clear:both;"></div>
     </div>

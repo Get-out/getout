@@ -1,3 +1,4 @@
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.shortcuts import render_to_response, render, redirect
 from django.http import HttpResponse
 
@@ -49,7 +50,7 @@ def redirect_to_list(request):
 def list_view(request):
     """Give us a list of animals for a location for humans"""
     File = 'templates/list.html'
-    extra = {}
+    extra = {'not_found_image':staticfiles_storage.url('img/not-found.gif')}
 
     try:
         extra['things'] = things_list_from_request(request)

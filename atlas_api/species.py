@@ -40,7 +40,8 @@ class Species(object):
     @property
     def image(self):
         images = [i['largeImageUrl'] for i in self._info['images']]
-        return images[0] if images else "/static/img/not-found.gif"
+        if images:
+            return images[0]
 
     @property
     def description(self):
