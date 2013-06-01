@@ -18,7 +18,14 @@ def index(request):
 
 def list_view(request):
     location = request.GET.get('location', 'wilsons promontory')
-    return render_to_response('templates/list.html', {'things': Location(location).ranked_species}, context_instance=RequestContext(request))
+    # TODO: un-hardcode
+    return render_to_response('templates/list.html', {'things': Location(location).ranked_species(10, {
+        'fish': 0,
+        'bird': 5,
+        'plant': 5,
+        'tree': 5,
+        'other': 5,
+    })}, context_instance=RequestContext(request))
 
 def species(request):
 		name = request.GET.get("name")

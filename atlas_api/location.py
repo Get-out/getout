@@ -1,7 +1,10 @@
+import random
+import itertools
+
 import requests
 
 from helpers import cached_property
-from families import FISH_FAMILIES
+import families
 
 class Location(object):
     search_url = 'http://spatial.ala.org.au/ws/search/'
@@ -34,14 +37,24 @@ class Location(object):
         )).json()
         return [Species(i) for i in results if i['rank'] == 'species']
 
-    def ranked_species(self, number=10):
+    def ranked_species(self, number=10, types={}):
         # sort the species by their sighting counts
         sorted_species = sorted(self.species, key=lambda x: x.count, reverse=True)
 
-        # get rid of excluded families (ie. fish)
-        filtered_species = [i for i in sorted_species if not i.is_fish]
+        # the percent chance that a certain thing will be shown
+        sum_scores = sum(types.values())
+        type_scores = {
+            k: float(score) / sum_scores
+            for k, score in types.iteritems()
+        }
 
-        return filtered_species[:number]
+        type_ranked = (
+            i
+            for i in sorted_species
+            if random.random() < type_scores[i.le_type]
+        )
+
+        return list(itertools.islice(type_ranked, number))
 
 class Species(object):
     info_url = 'http://bie.ala.org.au/species/'
@@ -85,7 +98,19 @@ class Species(object):
     def description(self):
         # super-reliable way of getting the description
         properties = [i['value'] for i in self._info['simpleProperties'] if not i['value'].startswith("http")]
-        return max(properties, key=len)
+        return max(properties, key=len) if properties else ""
+
+    @property
+    def le_type(self):
+        # please forgive me, for I have sinneth
+        for family in dir(families):
+            if not family.endswith('FAMILIES'):
+                continue
+            if self._from_json['family'].lower() in getattr(families, family):
+                print family.split('_')[0].lower()
+                return family.split('_')[0].lower()
+        print 'other'
+        return 'other'
 
     def as_json(self):
         return {'name':self.common_name, 'scientific_name':self.name, 'image':self.image}
