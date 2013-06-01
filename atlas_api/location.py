@@ -1,7 +1,7 @@
 import requests
 
 from helpers import cached_property
-from excluded_families import EXCLUDED_FAMILIES
+from families import FISH_FAMILIES
 
 class Location(object):
     search_url = 'http://spatial.ala.org.au/ws/search/'
@@ -58,7 +58,7 @@ class Species(object):
 
     @property
     def is_fish(self):
-        return self._from_json['family'].lower() in EXCLUDED_FAMILIES
+        return self._from_json['family'].lower() in FISH_FAMILIES
 
     @property
     def common_name(self):
