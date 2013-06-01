@@ -1,4 +1,5 @@
 import os
+import pkg_resources
 
 root = lambda x: os.path.join(os.path.dirname(__file__), x)
 
@@ -87,10 +88,9 @@ ROOT_URLCONF = 'get_out.urls'
 WSGI_APPLICATION = 'get_out.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+      pkg_resources.resource_filename("get_out", "")
+    ,
+    )
 
 INSTALLED_APPS = (
     'django.contrib.auth',

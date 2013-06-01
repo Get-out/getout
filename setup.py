@@ -7,7 +7,7 @@ setup(
 	, packages = ['get_out']
 
 	, package_data =
-	  { 'get-out':
+	  { 'get_out':
 		[ 'templates/*.html'
 		]
 	  }
