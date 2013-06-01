@@ -17,6 +17,7 @@ setup(
       [ 'django'
       , 'psycopg2'
       , 'requests'
+      , 'django-bootstrap-form'
       ]
 
     # metadata

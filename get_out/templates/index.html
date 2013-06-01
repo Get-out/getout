@@ -4,7 +4,8 @@
 	<div class="hero-unit">
 		<h1>GetOut!</h1>
 		<form action="/" method="post">{% csrf_token %}
-        {{ form.as_p }}
+        {% load bootstrap %}
+        {{ form|bootstrap }}
         <input type="submit" value="Submit" />
         </form>
 		<p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
