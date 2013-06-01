@@ -6,7 +6,15 @@
 		<form action="/list" method="get">
         {% load bootstrap %}
         {{ form|bootstrap }}
-
+        <div>
+            Birds:<input type="range" name="birds"  min="0" max="10" value="5"><br>
+            Fish:<input type="range" name="fish"  min="0" max="10" value="0"><br>
+            Mammals:<input type="range" name="mammals"  min="0" max="10" value="5"><br>
+            Marsupials:<input type="range" name="marsupials" min="0" max="10" value="5"><br>
+            Plants:<input type="range" name="plants" min="0" max="10" value="5"><br>
+            Reptiles:<input type="range" name="reptiles" min="0" max="10" value="5"><br>
+            Trees:<input type="range" name="trees" min="0" max="10" value="5"><br>
+        </div>
         <input class="btn btn-primary btn-large" type="submit" value="Search" />
     </form>    
 	</div>
