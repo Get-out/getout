@@ -10,8 +10,10 @@ import json
 
 def index(request):    
     form = forms.LocationSearchForm() 
+    things = [({'image':'/static/img/{0}.png'.format(x), 'description':'{0}'.format(x)}) for x in ("birds", "fish", "other_fauna","plants", "trees")]
     return render(request, 'templates/index.html', {
-        'form': form
+        'form': form,
+        'things':things
     })
 
 def list_view(request):
