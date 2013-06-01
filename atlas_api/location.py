@@ -78,7 +78,8 @@ class Species(object):
 
     @property
     def image(self):
-        return self._info['taxonConcept'].get('image')
+        images = [i['largeImageUrl'] for i in self._info['images']]
+        return images[0] if images else "/static/img/not-found.gif"
 
     @property
     def description(self):
