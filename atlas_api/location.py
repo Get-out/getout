@@ -61,3 +61,6 @@ class Species(object):
     @property
     def image(self):
         return self._info['image']
+
+    def as_json(self):
+        return {'name':self.name, 'common_name':self.common_name, 'image':self.image}

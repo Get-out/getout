@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^$', 'get_out.views.index', name='home'),
 
     url(r'^list$', 'get_out.views.list_view', name='list'),
+    url(r'^species$', 'get_out.views.species', name='species'),
     # url(r'^get_out/', include('get_out.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

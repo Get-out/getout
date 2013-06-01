@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
 	  name = "get-out"
 	, version = '0.1'
-	, packages = ['get_out']
+	, packages = ['get_out', 'atlas_api']
 
 	, package_data =
 	  { 'get_out':
