@@ -21,7 +21,7 @@ class Location(object):
     def info(self):
         return requests.get(self.info_url + self.pid).json()
 
-    @cached_property
+    @property
     def bounding_box(self):
         return self.info['bbox']
 
@@ -34,20 +34,30 @@ class Location(object):
         return [Species(i) for i in results if i['rank'] == 'species']
 
 class Species(object):
+    info_url = 'http://bie.ala.org.au/species/info/'
+
     def __init__(self, json_response):
-        self._info = json_response
+        self._from_json = json_response
 
     def __repr__(self):
         return '<Species name:"%s" (%s)>' % (self.common_name, self.name)
 
     @property
     def common_name(self):
-        return self._info['commonName'] or self.name
+        return self._from_json['commonName'] or self.name
 
     @property
     def name(self):
-        return self._info['name']
+        return self._from_json['name']
 
     @property
     def _guid(self):
-        return self._info['guid']
+        return self._from_json['guid']
+
+    @cached_property
+    def _info(self):
+        return requests.get(self.info_url + self._guid + '.json').json()['taxonConcept']
+
+    @property
+    def image(self):
+        return self._info['image']
