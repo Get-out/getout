@@ -12,3 +12,4 @@ def cached_property(f):
             return x
 
     return property(get)
+
