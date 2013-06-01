@@ -27,7 +27,27 @@ class Location(object):
 
     @cached_property
     def species(self):
-        return requests.get(self.species_url, params=dict(
+        results = requests.get(self.species_url, params=dict(
             wkt = self.bounding_box,
             pageSize = 1000,
         )).json()
+        return [Species(i) for i in results if i['rank'] == 'species']
+
+class Species(object):
+    def __init__(self, json_response):
+        self._info = json_response
+
+    def __repr__(self):
+        return '<Species name:"%s" (%s)>' % (self.common_name, self.name)
+
+    @property
+    def common_name(self):
+        return self._info['commonName'] or self.name
+
+    @property
+    def name(self):
+        return self._info['name']
+
+    @property
+    def _guid(self):
+        return self._info['guid']
