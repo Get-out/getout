@@ -1,0 +1,14 @@
+{% extends "templates/base.html" %}
+{% block body %}
+	<ul>
+	{% for x in things %}
+		{% block item %}
+		<li>
+			this is an item
+			<input type="checkbox">
+		</li>
+		{% endblock %}
+	{% endfor %}
+	</ul>
+{% endblock %}
+
