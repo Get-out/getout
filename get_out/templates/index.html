@@ -3,7 +3,8 @@
 	<!-- Main hero unit for a primary marketing message or call to action -->
 	<div class="hero-unit">
 		<h1>Get Out!</h1>
-		<form action="/list" method="get">
+		<form action="/list" method="post">
+        {% csrf_token %}
         {% load bootstrap %}
         {{ form|bootstrap }}
         {% for x in things %}
@@ -13,7 +14,7 @@
           </a>
         </div>
         <div class="span11">
-            <input type="range" name={{ x.description }}  min="0" max="10" value="5" style="float:left"><br> 
+            <input type="range" name={{ x.description }}  min="0" max="10" value="{{ x.default }}" style="float:left"><br> 
         </div>
         </div>
         {% endfor %}
