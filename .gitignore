@@ -7,3 +7,4 @@ build/
 .ropeproject/
 local_settings.py
 .*.swp
+collectd_static/
