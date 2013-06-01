@@ -9,17 +9,7 @@ from get_out import forms
 import json
 
 def index(request):    
-    form = None
-
-    if request.method == 'POST': # If the form has been submitted...
-        form = forms.LocationSearchForm(request.POST) # A form bound to the POST data
-        if form.is_valid(): # All validation rules pass
-            # Process the data in form.cleaned_data
-            # ...
-            return HttpResponse('FORM SUBMISSION WORKED!') # Redirect after POST
-    else:
-        form = forms.LocationSearchForm() # An unbound form
-
+    form = forms.LocationSearchForm() 
     return render(request, 'templates/index.html', {
         'form': form
     })
