@@ -10,13 +10,16 @@ from get_out import forms
 import json
 
 DEFAULT_TYPE_WEIGHTS = {"bird":5, "fish":0, "land_animal":5, "plant":5, "tree":5}
+
 def params_from_request(req):
+    """Get us some parameters from the request GET and POST"""
     location = req.REQUEST.get('location', 'wilsons promontory')
     per_page = req.REQUEST.get('per_page', 10)
     species_weights = {k:v for k, v in req.REQUEST.items() if k in DEFAULT_TYPE_WEIGHTS}
     return location, per_page, species_weights
 
 def things_list_from_request(req):
+    """Get us some species from a request"""
     location, per_page, species_weights = params_from_request(req)
     return SpeciesList(location, species_weights).retreive(per_page)
 
