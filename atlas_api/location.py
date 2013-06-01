@@ -34,7 +34,6 @@ class Location(object):
         )).json()
         return [Species(i) for i in results if i['rank'] == 'species']
 
-    @property
     def ranked_species(self, number=10):
         # sort the species by their sighting counts
         sorted_species = sorted(self.species, key=lambda x: x.count, reverse=True)
