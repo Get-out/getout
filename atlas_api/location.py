@@ -22,30 +22,36 @@ class Location(object):
 
     @cached_property
     def pid(self):
-        info = requests.get(self.search_url, params=dict(
-            q = self.name,
-        )).json()
+        """Ask atlas for the pid of this location"""
+        info = requests.get(self.search_url
+            , params=dict(q = self.name)
+            ).json()
         if not info:
             raise Location404(location=self.name)
         return info[0]['pid']
 
     @cached_property
     def info(self):
+        """Ask atlas for info about this location"""
         return requests.get(self.info_url + self.pid).json()
+
+    @cached_property
+    def species(self):
+        """Ask atlas for all the species in our bounding box"""
+        results = requests.get(self.species_url
+            , params=dict(wkt = self.bounding_box, pageSize = 1000000)
+            )
+        return [Species(i) for i in results.json() if i['rank'] == 'species']
 
     @property
     def bounding_box(self):
         return self.info['bbox']
 
-    @cached_property
-    def species(self):
-        results = requests.get(self.species_url, params=dict(
-            wkt = self.bounding_box,
-            pageSize = 1000000,
-        )).json()
-        return [Species(i) for i in results if i['rank'] == 'species']
+    def ranked_species(self, number=10, types=None):
+        """Return <number> species with a range of types as indicated by <types>"""
+        if types is None:
+            types = {}
 
-    def ranked_species(self, number=10, types={}):
         # sort the species by their sighting counts
         sorted_species = sorted(self.species, key=lambda x: x.count, reverse=True)
 
@@ -54,13 +60,15 @@ class Location(object):
         type_scores = {
             k: float(score) / sum_scores
             for k, score in types.iteritems()
-        }
+            }
 
+        # Make a generator to spit out species
         type_ranked = (
             i
             for i in sorted_species
             if random.random() < type_scores[i.le_type]
-        )
+            )
 
+        # Return only <number> of our list of species
         return list(itertools.islice(type_ranked, number))
 
