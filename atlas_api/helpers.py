@@ -10,5 +10,5 @@ def cached_property(f):
         except KeyError:
             x = self._property_cache[f] = f(self)
             return x
-        
+
     return property(get)

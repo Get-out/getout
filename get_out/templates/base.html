@@ -10,7 +10,7 @@
 	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
 	<link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/cosmo/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body ng-app>
 	<div class="navbar navbar-inverse">
 	<div class="navbar-inner">
 		<div class="container">
@@ -42,5 +42,7 @@
 
 	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
+	<script src="/static/js/getout.js"></script>
+	{% block extrajs %}{% endblock %}
 </body>
 </html>
