@@ -61,6 +61,7 @@ def list_view(request):
         options = options_from_request(request)
         extra['things'] = SpeciesList(options.location, options.species_weights).retreive(options.per_page)
         extra['options'] = options
+        extra['title'] = options.location
     except Location404:
         extra['things'] = []
         extra['bad_location'] = True
