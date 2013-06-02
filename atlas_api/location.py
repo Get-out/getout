@@ -47,13 +47,14 @@ class Location(object):
     def bounding_box(self):
         return self.info['bbox']
 
-    def ranked_species(self, number=10, types=None):
+    def ranked_species(self, number=10, types=None, simple_names=False):
         """Return <number> species with a range of types as indicated by <types>"""
         if types is None:
             types = {}
 
         # sort the species by their sighting counts
-        sorted_species = sorted(self.species, key=lambda x: x.count, reverse=True)
+        raw_list = self.species
+        sorted_species = sorted(raw_list, key=lambda x: x.count, reverse=True)
 
         # the percent chance that a certain thing will be shown
         sum_scores = sum(types.values())

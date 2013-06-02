@@ -16,13 +16,14 @@ def params_from_request(req):
     """Get us some parameters from the request GET and POST"""
     location = req.REQUEST.get('location', 'wilsons promontory')
     per_page = req.REQUEST.get('per_page', 10)
+    simple_names = req.REQUEST.get('simple_names', True)
     species_weights = {k:v for k, v in req.REQUEST.items() if k in DEFAULT_TYPE_WEIGHTS}
-    return location, per_page, species_weights
+    return location, per_page, species_weights, simple_names
 
 def things_list_from_request(req):
     """Get us some species from a request"""
-    location, per_page, species_weights = params_from_request(req)
-    return SpeciesList(location, species_weights).retreive(per_page)
+    location, per_page, species_weights, simple_names = params_from_request(req)
+    return SpeciesList(location, species_weights, simple_names).retreive(per_page)
 
 ########################
 ###   VIEWS
@@ -39,10 +40,10 @@ def index(request):
 
 def redirect_to_list(request):
     """Redirect to the list view"""
-    location, per_page, species_weights = params_from_request(request)
+    location, per_page, species_weights, advanced = params_from_request(request)
     response = redirect('list')
 
-    params = dict(location=location, per_page=per_page)
+    params = dict(location=location, per_page=per_page, advanced=advanced)
     params.update(species_weights)
     response['Location'] += '?{}'.format(urlencode(params))
     return response
