@@ -28,7 +28,7 @@ def options_from_request(req):
     """Get us some parameters from the request GET and POST"""
     location = req.REQUEST.get('location', 'wilsons promontory')
     per_page = req.REQUEST.get('per_page', 10)
-    simple_names = bool(req.REQUEST.get('simple_names', True))
+    simple_names = req.REQUEST.get('simple_names', '').lower() not in ('', 'n', 'no', 'false')
     species_weights = {k:v for k, v in req.REQUEST.items() if k in DEFAULT_TYPE_WEIGHTS}
     return Options(location, per_page, species_weights, simple_names)
 
