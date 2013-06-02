@@ -47,7 +47,7 @@ class Location(object):
     def bounding_box(self):
         return self.info['bbox']
 
-    def ranked_species(self, number=10, types=None, simple_names=False):
+    def ranked_species(self, number=10, types=None):
         """Return <number> species with a range of types as indicated by <types>"""
         if types is None:
             types = {}

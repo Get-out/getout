@@ -12,18 +12,25 @@ import json
 
 DEFAULT_TYPE_WEIGHTS = {"bird":5, "fish":0, "land_animal":5, "plant":5, "tree":5}
 
-def params_from_request(req):
+class Options(object):
+    def __init__(self, location, per_page, simple_names, species_weights):
+        self.location = location
+        self.per_page = per_page
+        self.simple_names = simple_names
+        self.species_weights = species_weights
+
+    def urlparams(self):
+        params = dict(location=self.location, per_page=self.per_page, simple_names=self.simple_names)
+        params.update(self.species_weights)
+        return params
+
+def options_from_request(req):
     """Get us some parameters from the request GET and POST"""
     location = req.REQUEST.get('location', 'wilsons promontory')
     per_page = req.REQUEST.get('per_page', 10)
-    simple_names = req.REQUEST.get('simple_names', True)
+    simple_names = bool(req.REQUEST.get('simple_names', True))
     species_weights = {k:v for k, v in req.REQUEST.items() if k in DEFAULT_TYPE_WEIGHTS}
-    return location, per_page, species_weights, simple_names
-
-def things_list_from_request(req):
-    """Get us some species from a request"""
-    location, per_page, species_weights, simple_names = params_from_request(req)
-    return SpeciesList(location, species_weights, simple_names).retreive(per_page)
+    return Options(location, per_page, species_weights, simple_names)
 
 ########################
 ###   VIEWS
@@ -40,12 +47,9 @@ def index(request):
 
 def redirect_to_list(request):
     """Redirect to the list view"""
-    location, per_page, species_weights, advanced = params_from_request(request)
+    options = options_from_request(request)
     response = redirect('list')
-
-    params = dict(location=location, per_page=per_page, advanced=advanced)
-    params.update(species_weights)
-    response['Location'] += '?{}'.format(urlencode(params))
+    response['Location'] += '?{}'.format(urlencode(options.urlparams()))
     return response
 
 def list_view(request):
@@ -54,7 +58,8 @@ def list_view(request):
     extra = {'not_found_image':staticfiles_storage.url('img/not-found.gif')}
 
     try:
-        extra['things'] = things_list_from_request(request)
+        options = options_from_request(request)
+        extra['things'] = SpeciesList(options.location, options.species_weights).retreive(options.per_page)
     except Location404:
         extra['things'] = []
         extra['bad_location'] = True
@@ -67,6 +72,8 @@ def list_view(request):
 
 def species(request):
     """Give us a list of species for a location for computers"""
-    things = [species.as_json() for species in things_list_from_request(request)]
-    return HttpResponse(json.dumps(things), mimetype="application/json")
+    options = options_from_request(request)
+    things = SpeciesList(options.location, options.species_weights).retreive(options.per_page)
+    things_json = [species.as_json() for species in things]
+    return HttpResponse(json.dumps(things_json), mimetype="application/json")
 

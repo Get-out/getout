@@ -2,10 +2,9 @@ from atlas_api.location import Location
 
 class SpeciesList(object):
     """Knows how to get species for a location given a particular distribution of weightings"""
-    def __init__(self, location, species_weights, simple_names=False):
+    def __init__(self, location, species_weights):
         self.location = location
         self.species_weights = species_weights
-        self.simple_names = simple_names
 
     def retreive(self, amount):
         """Retrieve a number of species"""
@@ -18,5 +17,5 @@ class SpeciesList(object):
 
         # Land_animal maps to other
         species_weight['other'] = int(self.species_weights.get('land_animal', 5))
-        return Location(self.location).ranked_species(10, species_weight, self.simple_names)
+        return Location(self.location).ranked_species(10, species_weight)
 
