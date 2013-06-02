@@ -26,6 +26,10 @@ class Species(object):
         return self._from_json['commonName'] or self.name
 
     @property
+    def simple_name(self):
+        return 'seagull'
+
+    @property
     def name(self):
         return self._from_json['name']
 

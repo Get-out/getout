@@ -13,7 +13,7 @@ import json
 DEFAULT_TYPE_WEIGHTS = {"bird":5, "fish":0, "land_animal":5, "plant":5, "tree":5}
 
 class Options(object):
-    def __init__(self, location, per_page, simple_names, species_weights):
+    def __init__(self, location, per_page, species_weights, simple_names):
         self.location = location
         self.per_page = per_page
         self.simple_names = simple_names
